@@ -12,6 +12,10 @@ let config = {
     }
 };
 
+
+let currentTime = new Date();
+let lastBulletFire = 0;
+
 let game = new Phaser.Game(config);
 
 
@@ -32,8 +36,11 @@ function create() {
 
 function update() {
 
-    if (fire.isDown) {
+    currentTime = new Date();
+
+    if (fire.isDown && (currentTime - lastBulletFire) > 200) {
         fireBullet();
+        lastBulletFire = new Date();
     }
 
 
@@ -58,6 +65,6 @@ function update() {
 function fireBullet() {
     let bullet = playerBullets.create(player.x, player.y, 'playerBullet');
 
-    bullet.setCollideWorldBounds(true);
+    //bullet.setCollideWorldBounds(true);
     bullet.setVelocity(0, -300);
 }
