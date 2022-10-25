@@ -17,6 +17,7 @@ let game = new Phaser.Game(config);
 
 function preload() {
     this.load.image('character', 'assets/player.png');
+    this.load.image('playerBullet', 'assets/playerBullet.png');
 }
 
 function create() {
@@ -24,9 +25,18 @@ function create() {
     player.setCollideWorldBounds(true);
 
     cursors = this.input.keyboard.createCursorKeys();
+    fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+
+    playerBullets = this.physics.add.group();
 }
 
 function update() {
+
+    if (fire.isDown) {
+        fireBullet();
+    }
+
+
     if (cursors.left.isDown) {
         player.setVelocityX(-200);
     } else if (cursors.right.isDown) {
@@ -42,4 +52,12 @@ function update() {
     } else {
         player.setVelocityY(0);
     }
+}
+
+
+function fireBullet() {
+    let bullet = playerBullets.create(player.x, player.y, 'playerBullet');
+
+    bullet.setCollideWorldBounds(true);
+    bullet.setVelocity(0, -300);
 }
