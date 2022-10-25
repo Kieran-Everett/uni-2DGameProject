@@ -13,6 +13,11 @@ let config = {
 };
 
 
+let player;
+let cursors;
+let fire;
+let playerBullets;
+
 let currentTime = new Date();
 let lastBulletFire = 0;
 
