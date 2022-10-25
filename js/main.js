@@ -23,7 +23,7 @@ let playerHPText;
 let enemy;
 let enemyHP = 100;
 let gameOver = false;
-let enemyState = 1;
+let enemyState = 2;
 let enemyBullets;
 
 let currentTime = new Date();
@@ -79,7 +79,14 @@ function update() {
     });
 
     if (enemyStep > lastEnemyStep){
-        fireEnemyBullet(Math.random() * config.width + 1, 0, 0, 500);
+
+        if (enemyState == 1) {
+            fireEnemyBullet(Math.random() * config.width + 1, 0, 0, 500);
+        } else if (enemyState == 2) {
+            // TODO Normalize the velocity vector
+            fireEnemyBullet(enemy.x, enemy.y, (enemy.x - player.x) * -1, (enemy.y - player.y) * -1, 500);
+        }
+
     }
 
 
