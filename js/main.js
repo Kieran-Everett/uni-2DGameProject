@@ -20,10 +20,26 @@ function preload() {
 }
 
 function create() {
-    player = this.physics.add.sprite(100, 450, 'character');
+    player = this.physics.add.sprite(config.width / 2, 450, 'character');
     player.setCollideWorldBounds(true);
+
+    cursors = this.input.keyboard.createCursorKeys();
 }
 
 function update() {
+    if (cursors.left.isDown) {
+        player.setVelocityX(-200);
+    } else if (cursors.right.isDown) {
+        player.setVelocityX(200);
+    } else {
+        player.setVelocityX(0);
+    }
 
+    if (cursors.down.isDown) {
+        player.setVelocityY(200);
+    } else if (cursors.up.isDown) {
+        player.setVelocityY(-200);
+    } else {
+        player.setVelocityY(0);
+    }
 }
