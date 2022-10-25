@@ -17,6 +17,9 @@ let player;
 let cursors;
 let fire;
 let playerBullets;
+let playerHP = 3;
+let playerHPText;
+
 let enemy;
 let enemyHP = 100;
 let gameOver = false;
@@ -52,8 +55,11 @@ function create() {
 
     enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
 
+    playerHPText = this.add.text(10, 550, 'HP: ' + playerHP, { fontSize: '32px', fill: '#FFFFFF'});
+
 
     this.physics.add.overlap(enemy, playerBullets, damageEnemy, null, this);
+    this.physics.add.overlap(player, enemyBullets, damagePlayer, null, this);
 }
 
 function update() {
@@ -122,6 +128,17 @@ function damageEnemy(enemy, bullet) {
     bullet.destroy();
 
     if (enemyHP == 0) {
+        this.physics.pause();
+        gameOver = true;
+    }
+}
+
+function damagePlayer(player, bullet) {
+    playerHP -= 1;
+    playerHPText.setText('HP: ' + playerHP);
+    bullet.destroy();
+
+    if (playerHP == 0) {
         this.physics.pause();
         gameOver = true;
     }
