@@ -55,6 +55,12 @@ function update() {
 
     currentTime = new Date();
 
+    
+    playerBullets.children.iterate(function (child) {
+        child.setVelocityX(Math.sin(child.y / 25) * 200);
+    });
+
+
     if (fire.isDown && (currentTime - lastBulletFire) > 200) {
         fireBullet();
         lastBulletFire = new Date();
@@ -87,7 +93,7 @@ function fireBullet() {
 }
 
 function damageEnemy(enemy, bullet) {
-    enemyHP -= 20;
+    enemyHP -= 1;
     console.log(enemyHP);
     bullet.destroy();
 
