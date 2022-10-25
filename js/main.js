@@ -17,6 +17,9 @@ let player;
 let cursors;
 let fire;
 let playerBullets;
+let enemy;
+let enemyHP = 100;
+let gameOver = false;
 
 let currentTime = new Date();
 let lastBulletFire = 0;
@@ -27,6 +30,7 @@ let game = new Phaser.Game(config);
 function preload() {
     this.load.image('character', 'assets/player.png');
     this.load.image('playerBullet', 'assets/playerBullet.png');
+    this.load.image('enemy', 'assets/enemy.png');
 }
 
 function create() {
@@ -37,9 +41,17 @@ function create() {
     fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
     playerBullets = this.physics.add.group();
+
+
+    enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
+
+
+    this.physics.add.overlap(enemy, playerBullets, damageEnemy, null, this);
 }
 
 function update() {
+
+    if (gameOver) return;
 
     currentTime = new Date();
 
@@ -72,4 +84,15 @@ function fireBullet() {
 
     //bullet.setCollideWorldBounds(true);
     bullet.setVelocity(0, -300);
+}
+
+function damageEnemy(enemy, bullet) {
+    enemyHP -= 20;
+    console.log(enemyHP);
+    bullet.destroy();
+
+    if (enemyHP == 0) {
+        this.physics.pause();
+        gameOver = true;
+    }
 }
