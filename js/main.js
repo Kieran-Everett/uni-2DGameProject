@@ -20,9 +20,15 @@ let playerBullets;
 let enemy;
 let enemyHP = 100;
 let gameOver = false;
+let enemyState = 1;
+let enemyBullets;
 
 let currentTime = new Date();
 let lastBulletFire = 0;
+
+let enemyStep = 0;
+let lastEnemyStep = enemyStep;
+let lastStepTime = currentTime;
 
 let game = new Phaser.Game(config);
 
@@ -41,6 +47,7 @@ function create() {
     fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 
     playerBullets = this.physics.add.group();
+    enemyBullets = this.physics.add.group();
 
 
     enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
@@ -55,14 +62,23 @@ function update() {
 
     currentTime = new Date();
 
+    if (currentTime - lastStepTime > 500) {
+        enemyStep += 1;
+        lastStepTime = currentTime;
+    }
+
     
     playerBullets.children.iterate(function (child) {
         child.setVelocityX(Math.sin(child.y / 25) * 200);
     });
 
+    if (enemyStep > lastEnemyStep){
+        fireEnemyBullet(enemy.x, enemy.y, 0, 500);
+    }
+
 
     if (fire.isDown && (currentTime - lastBulletFire) > 200) {
-        fireBullet();
+        firePlayerBullet();
         lastBulletFire = new Date();
     }
 
@@ -82,14 +98,22 @@ function update() {
     } else {
         player.setVelocityY(0);
     }
+
+    lastEnemyStep = enemyStep;
 }
 
 
-function fireBullet() {
+function firePlayerBullet() {
     let bullet = playerBullets.create(player.x, player.y, 'playerBullet');
 
     //bullet.setCollideWorldBounds(true);
     bullet.setVelocity(0, -300);
+}
+
+function fireEnemyBullet(x, y, velocityX, velocityY) {
+    let bullet = enemyBullets.create(x, y, 'playerBullet');
+
+    bullet.setVelocity(velocityX, velocityY);
 }
 
 function damageEnemy(enemy, bullet) {
