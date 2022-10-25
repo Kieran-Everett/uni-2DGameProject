@@ -73,7 +73,7 @@ function update() {
     });
 
     if (enemyStep > lastEnemyStep){
-        fireEnemyBullet(enemy.x, enemy.y, 0, 500);
+        fireEnemyBullet(Math.random() * config.width + 1, 0, 0, 500);
     }
 
 
