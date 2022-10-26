@@ -84,6 +84,19 @@ function update() {
             fireEnemyBullet(Math.random() * config.width + 1, 0, 0, 500);
         } else if (enemyState == 2) {
             // TODO Normalize the velocity vector
+            
+            /*
+            let bulletVectorX = enemy.x - player.x;
+            let bulletVectorY = enemy.y - player.y;
+            bulletVectorX = vectorNormalize(bulletVectorX, bulletVectorY)[0];
+            bulletVectorY = vectorNormalize(bulletVectorX, bulletVectorY)[1];
+            
+            bulletVectorX *= 100;
+            bulletVectorY *= 100;
+
+            fireEnemyBullet(enemy.x, enemy.y, bulletVectorX, bulletVectorY, 500);
+            */
+            
             fireEnemyBullet(enemy.x, enemy.y, (enemy.x - player.x) * -1, (enemy.y - player.y) * -1, 500);
         }
 
@@ -148,5 +161,22 @@ function damagePlayer(player, bullet) {
     if (playerHP == 0) {
         this.physics.pause();
         gameOver = true;
+    }
+}
+
+function vectorMagnitude(x, y) {
+    return Math.sqrt((x * x) + (y * y));
+}
+
+function vectorNormalize(x, y) {
+    let magnitude = vectorMagnitude(x, y);
+    if (magnitude > 0) {
+        let normX = x / magnitude;
+        let normY = y / magnitude;
+        //return Math.sqrt((normX * normX) + (normY * normY));
+        return [normX, normY];
+    } else {
+        //return 0;
+        return [0, 0];
     }
 }
