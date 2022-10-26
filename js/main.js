@@ -1,7 +1,7 @@
 let config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 600,
+    height: 800,
     physics: {
         default: 'arcade'
     },
@@ -55,7 +55,7 @@ function create() {
 
     enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
 
-    playerHPText = this.add.text(10, 550, 'HP: ' + playerHP, { fontSize: '32px', fill: '#FFFFFF'});
+    playerHPText = this.add.text(10, 750, 'HP: ' + playerHP, { fontSize: '32px', fill: '#FFFFFF'});
 
 
     this.physics.add.overlap(enemy, playerBullets, damageEnemy, null, this);
