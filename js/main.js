@@ -24,13 +24,16 @@ let playerHPText;
 let enemy;
 let enemyHP = 100;
 let gameOver = false;
-let enemyState = 2;
+let enemyState = 3;
 let enemyBullets;
+let enemyLineAttacks;
+let enemyLineAttackRot = 0;
 
 let currentTime = new Date();
 let lastBulletFire = 0;
 
 let enemyStep = 0;
+let enemyStepTime = 100;
 let lastEnemyStep = enemyStep;
 let lastStepTime = currentTime;
 
@@ -57,6 +60,7 @@ function create() {
     // Creating groups for bullets
     playerBullets = this.physics.add.group();
     enemyBullets = this.physics.add.group();
+    //enemyLineAttacks = this.physics.add.group();
 
     // Enemy physics
     enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
@@ -80,7 +84,7 @@ function update() {
 
     // Calculating current step for the enemy AI
     // Each step lasts a number of miliseconds and then it increments the step count for controling certain behaviours like when the enemy fires
-    if (currentTime - lastStepTime > 500) {
+    if (currentTime - lastStepTime > enemyStepTime) {
         enemyStep += 1;
         lastStepTime = currentTime; // Updating lastStepTime so it knows how long as been since the last step took place
     }
@@ -113,6 +117,10 @@ function update() {
             */
             
             fireEnemyBullet(enemy.x, enemy.y, (enemy.x - player.x) * -1, (enemy.y - player.y) * -1);
+        } else if (enemyState == 3) {
+            //fireEnemyLine(player.x, player.y, 10);
+            enemyLineAttackRot += 10;
+            this.add.line(player.x+200, player.y+100, 0, 0, getCircleAngleCoord(50, enemyLineAttackRot)[0], getCircleAngleCoord(50, enemyLineAttackRot)[1], 0xff0000); // x, y, startx, starty, endx, endy, color, alpha
         }
 
     }
@@ -167,6 +175,10 @@ function fireEnemyBullet(x, y, velocityX, velocityY) {
     bullet.setVelocity(velocityX, velocityY);
 }
 
+function fireEnemyLine(x, y, length) {
+    let line;
+}
+
 // Damaging enemy function
 function damageEnemy(enemy, bullet) {
     enemyHP -= 1; // Dealing damage
@@ -209,3 +221,28 @@ function vectorNormalize(x, y) {
     }
 }
 */
+
+
+//https://stackoverflow.com/questions/43641798/how-to-find-x-and-y-coordinates-on-a-flipped-circle-using-javascript-methods#:~:text=Typically%2C%20to%20find%20the%20x,sin(degrees%E2%80%8E%C2%B0)).
+function getCircleAngleCoord(radius, angle) {
+    /*
+    let x = radius * Math.sin(Math.PI * 2 * angle / 360);
+    let y = radius * Math.cos(Math.PI * 2 * angle / 360);
+    return [x, y];
+    */
+
+    /*
+    if (angle <= 90){
+        let x = radius * Math.sin(Math.PI * 2 * angle / 360);
+        let y = radius * Math.cos(Math.PI * 2 * angle / 360);
+        return [x, y];
+    } else if (angle <= 180) {
+        let x = radius * Math.sin(Math.PI * 2 * (angle - 90) / 360);
+        let y = radius * Math.cos(Math.PI * 2 * (angle - 90) / 360);
+        return [x, y*-1];
+    }
+    */
+
+    angle = (angle - 90) * Math.PI/180;
+    return [radius*Math.cos(angle), -radius*Math.sin(angle)];
+}
