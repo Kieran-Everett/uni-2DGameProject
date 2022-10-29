@@ -120,7 +120,14 @@ function update() {
         } else if (enemyState == 3) {
             //fireEnemyLine(player.x, player.y, 10);
             enemyLineAttackRot += 10;
-            this.add.line(player.x+200, player.y+100, 0, 0, getCircleAngleCoord(50, enemyLineAttackRot)[0], getCircleAngleCoord(50, enemyLineAttackRot)[1], 0xff0000); // x, y, startx, starty, endx, endy, color, alpha
+            this.add.line(
+                player.x, // origin x
+                player.y, // origin y
+                getCircleAngleCoord(100, enemyLineAttackRot)[0]*-1, // start x
+                getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1, // start y
+                getCircleAngleCoord(100, enemyLineAttackRot)[0], // end x
+                getCircleAngleCoord(100, enemyLineAttackRot)[1], // end y
+                0xff0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color, alpha
         }
 
     }
