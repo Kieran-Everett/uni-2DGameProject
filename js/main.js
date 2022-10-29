@@ -127,7 +127,7 @@ function update() {
                 getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1, // start y
                 getCircleAngleCoord(100, enemyLineAttackRot)[0], // end x
                 getCircleAngleCoord(100, enemyLineAttackRot)[1], // end y
-                0xff0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color, alpha
+                0xff0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
         }
 
     }
