@@ -48,6 +48,7 @@ function preload() {
     this.load.image('character', 'assets/player.png');
     this.load.image('playerBullet', 'assets/playerBullet.png');
     this.load.image('enemy', 'assets/enemy.png');
+    this.load.image('powerUp', 'assets/powerUp.png');
 }
 
 function create() {
@@ -64,6 +65,8 @@ function create() {
     enemyBullets = this.physics.add.group();
     //enemyLineAttacks = this.physics.add.group();
 
+    powerUps = this.physics.add.group();
+
     // Enemy physics
     enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
 
@@ -74,6 +77,7 @@ function create() {
     // Collision
     this.physics.add.overlap(enemy, playerBullets, damageEnemy, null, this); // Enemy getting hit by playerBullets
     this.physics.add.overlap(player, enemyBullets, damagePlayer, null, this); // Player getting hit by enemyBullets
+    this.physics.add.overlap(player, powerUps, getPowerUp, null, this);
 }
 
 function update() {
@@ -301,4 +305,9 @@ function getCircleAngleCoord(radius, angle) {
 
     angle = (angle - 90) * Math.PI/180;
     return [radius*Math.cos(angle), -radius*Math.sin(angle)];
+}
+
+function getPowerUp(player, powerUp) {
+    playerHP += 1;
+    powerUp.destroy();
 }
