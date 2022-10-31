@@ -129,6 +129,10 @@ function update() {
 
             enemyLineAttackRot += 10;
 
+            if (enemyLineAttackRot == 350) {
+                enemyState = 4;
+            }
+
             let startPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0]*-1, getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1];
             let endPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0], getCircleAngleCoord(100, enemyLineAttackRot)[1]]
 
@@ -141,7 +145,9 @@ function update() {
                 endPos[1], // end y
                 0xff0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
             
-            //enemyLineAttackPos.push([]);
+            enemyLineAttackPos.push([startPos, endPos]);
+        } else if (enemyState = 4) {
+            console.log("state 4");
         }
 
     }
