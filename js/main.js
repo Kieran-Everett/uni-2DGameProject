@@ -24,7 +24,7 @@ let playerHPText;
 let enemy;
 let enemyHP = 100;
 let gameOver = false;
-let enemyState = 3;
+let enemyState = 2;
 let enemyBullets;
 let enemyLineAttacks;
 let enemyLineAttackRot = 0;
@@ -33,7 +33,8 @@ let currentTime = new Date();
 let lastBulletFire = 0;
 
 let enemyStep = 0;
-let enemyStepTime = 100;
+//let enemyStepTime = 100;
+let enemyStepTime = 400;
 let lastEnemyStep = enemyStep;
 let lastStepTime = currentTime;
 
@@ -100,6 +101,8 @@ function update() {
 
         // State machine stuff
         if (enemyState == 1) { // Random bullets falling from the top of the screen
+            enemyStepTime = 500;
+
             fireEnemyBullet(Math.random() * config.width + 1, 0, 0);
         } else if (enemyState == 2) { // Bullets are targeted to the player and start at the enemy
             // TODO Normalize the velocity vector
@@ -115,10 +118,14 @@ function update() {
 
             fireEnemyBullet(enemy.x, enemy.y, bulletVectorX, bulletVectorY;
             */
+
+            enemyStepTime = 500;
             
             fireEnemyBullet(enemy.x, enemy.y, (enemy.x - player.x) * -1, (enemy.y - player.y) * -1);
         } else if (enemyState == 3) {
             //fireEnemyLine(player.x, player.y, 10);
+            enemyStepTime = 100;
+
             enemyLineAttackRot += 10;
             this.add.line(
                 player.x, // origin x
