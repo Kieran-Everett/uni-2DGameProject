@@ -129,12 +129,8 @@ function update() {
 
             enemyLineAttackRot += 10;
 
-            if (enemyLineAttackRot == 350) {
-                enemyState = 4;
-            }
-
             let startPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0]*-1, getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1];
-            let endPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0], getCircleAngleCoord(100, enemyLineAttackRot)[1]]
+            let endPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0], getCircleAngleCoord(100, enemyLineAttackRot)[1]];
 
             this.add.line(
                 player.x, // origin x
@@ -146,8 +142,19 @@ function update() {
                 0xff0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
             
             enemyLineAttackPos.push([startPos, endPos]);
+
+            if (enemyLineAttackRot == 180) {
+                enemyState = 4;
+                enemyLineAttackRot = 0;
+            }
+
         } else if (enemyState = 4) {
-            console.log("state 4");
+            if (enemyLineAttackRot < enemyLineAttackPos.length) {
+                fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][0][0]+300, enemyLineAttackPos[enemyLineAttackRot][0][1]+300, 0, 40);
+
+            }
+            
+            enemyLineAttackRot += 1;
         }
 
     }
