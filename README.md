@@ -1,2 +1,2 @@
 # uni-2DGameProject
-a
+A bullet hell game made in JavaScript using Phaser.
