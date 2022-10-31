@@ -258,7 +258,7 @@ function damageEnemy(enemy, bullet) {
     if (enemyHP == 0) { // Game over if enemy has 0 HP
         this.physics.pause();
         gameOver = true;
-    } else if (enemyHP % 25 == 0) {
+    } else if (enemyHP % 15 == 0) {
         spawnPowerUP(Math.random() * config.width + 1, 0, 0, 50);
     }
 }
