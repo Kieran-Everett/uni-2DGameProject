@@ -311,6 +311,7 @@ function getCircleAngleCoord(radius, angle) {
 
 function getPowerUp(player, powerUp) {
     playerHP += 1;
+    playerHPText.setText('HP: ' + playerHP);
     powerUp.destroy();
 }
 
