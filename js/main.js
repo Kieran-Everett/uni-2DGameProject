@@ -142,7 +142,7 @@ function update() {
                 startPos[1], // start y
                 endPos[0], // end x
                 endPos[1], // end y
-                0x3f0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
+                0x6f0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
             
             enemyLineAttackPos.push([startPosAbsolute, endPosAbsolute]);
 
@@ -169,10 +169,14 @@ function update() {
 
                     fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][1][0], enemyLineAttackPos[enemyLineAttackRot][1][1], bulletVelocity[0], bulletVelocity[1]);
                 }
-
-            }
             
-            enemyLineAttackRot += 1;
+                enemyLineAttackRot += 1;
+
+            } else {
+                enemyState = 3;
+                enemyLineAttackRot = 0;
+                enemyLineAttackPos = [];
+            }
         }
 
     }
