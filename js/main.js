@@ -129,7 +129,7 @@ function update() {
             enemyStepTime = 500;
             
             fireEnemyBullet(enemy.x, enemy.y, (enemy.x - player.x) * -1, (enemy.y - player.y) * -1);
-        } else if (enemyState == 3) {
+        } else if (enemyState == 3) { // Line attack telegraph and calculations
             //fireEnemyLine(player.x, player.y, 10);
             enemyStepTime = 100;
 
@@ -157,7 +157,7 @@ function update() {
                 enemyLineAttackRot = 0;
             }
 
-        } else if (enemyState = 4) {
+        } else if (enemyState = 4) { // Line attack projectiles
             if (enemyLineAttackRot < enemyLineAttackPos.length) {
 
                 let bulletVelocity = [0, 0];
