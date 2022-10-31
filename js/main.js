@@ -131,6 +131,9 @@ function update() {
 
             let startPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0]*-1, getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1];
             let endPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0], getCircleAngleCoord(100, enemyLineAttackRot)[1]];
+            
+            let startPosAbsolute = [getCircleAngleCoord(100, enemyLineAttackRot)[0]*-1 + player.x, getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1 + player.y];
+            let endPosAbsolute = [getCircleAngleCoord(100, enemyLineAttackRot)[0] + player.x, getCircleAngleCoord(100, enemyLineAttackRot)[1] + player.y];
 
             this.add.line(
                 player.x, // origin x
@@ -141,7 +144,7 @@ function update() {
                 endPos[1], // end y
                 0xff0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
             
-            enemyLineAttackPos.push([startPos, endPos]);
+            enemyLineAttackPos.push([startPosAbsolute, endPosAbsolute]);
 
             if (enemyLineAttackRot == 180) {
                 enemyState = 4;
@@ -150,7 +153,7 @@ function update() {
 
         } else if (enemyState = 4) {
             if (enemyLineAttackRot < enemyLineAttackPos.length) {
-                fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][0][0]+300, enemyLineAttackPos[enemyLineAttackRot][0][1]+300, 0, 40);
+                fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][0][0], enemyLineAttackPos[enemyLineAttackRot][0][1], 0, 0);
 
             }
             
