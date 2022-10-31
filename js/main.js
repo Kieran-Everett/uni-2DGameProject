@@ -95,11 +95,13 @@ function update() {
         lastStepTime = currentTime; // Updating lastStepTime so it knows how long as been since the last step took place
     }
 
+    if (playerHP >= 3) {
+        // Making the player's bullets wiggle by iterating over and applying a sine to their X velocity based on their Y position
+        playerBullets.children.iterate(function (child) {
+            child.setVelocityX(Math.sin(child.y / 25) * 200);
+        });
+    }
     
-    // Making the player's bullets wiggle by iterating over and applying a sine to their X velocity based on their Y position
-    playerBullets.children.iterate(function (child) {
-        child.setVelocityX(Math.sin(child.y / 25) * 200);
-    });
 
     // If this is a new step then run this
     if (enemyStep > lastEnemyStep){
@@ -218,12 +220,20 @@ function update() {
 // Player bullet firing function
 function firePlayerBullet() {
     // Making the bullet
-    let bullet = playerBullets.create(player.x, player.y, 'playerBullet');
+    if (playerHP == 1) {
+        let bullet = playerBullets.create(player.x, player.y, 'playerBullet');
 
-    //bullet.setCollideWorldBounds(true);
+        //bullet.setCollideWorldBounds(true);
+    
+        // Setting its velocity
+        bullet.setVelocity(0, -300);
+    } else {
+        let bullet1 = playerBullets.create(player.x - 10, player.y, 'playerBullet');
+        let bullet2 = playerBullets.create(player.x + 10, player.y, 'playerBullet');
 
-    // Setting its velocity
-    bullet.setVelocity(0, -300);
+        bullet1.setVelocity(0, -300);
+        bullet2.setVelocity(0, -300);
+    }
 }
 
 // Enemy bullet firing function
