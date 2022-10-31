@@ -157,7 +157,7 @@ function update() {
                 enemyLineAttackRot = 0;
             }
 
-        } else if (enemyState = 4) { // Line attack projectiles
+        } else if (enemyState == 4) { // Line attack projectiles
             if (enemyLineAttackRot < enemyLineAttackPos.length) {
 
                 let bulletVelocity = [0, 0];
