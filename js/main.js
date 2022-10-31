@@ -18,7 +18,7 @@ let player;
 let cursors;
 let fire;
 let playerBullets;
-let playerHP = 3;
+let playerHP = 1;
 let playerHPText;
 
 let enemy;
