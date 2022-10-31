@@ -152,7 +152,7 @@ function update() {
             
             enemyLineAttackPos.push([startPosAbsolute, endPosAbsolute]);
 
-            if (enemyLineAttackRot == 180) {
+            if (enemyLineAttackRot == 360) {
                 enemyState = 4;
                 enemyLineAttackRot = 0;
             }
@@ -259,7 +259,7 @@ function damageEnemy(enemy, bullet) {
         this.physics.pause();
         gameOver = true;
     } else if (enemyHP % 15 == 0) {
-        spawnPowerUP(Math.random() * config.width + 1, 0, 0, 50);
+        spawnPowerUP(Math.random() * config.width + 1, 0, 0, 200);
     }
 }
 
