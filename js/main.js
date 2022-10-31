@@ -24,10 +24,11 @@ let playerHPText;
 let enemy;
 let enemyHP = 100;
 let gameOver = false;
-let enemyState = 2;
+let enemyState = 3;
 let enemyBullets;
 let enemyLineAttacks;
 let enemyLineAttackRot = 0;
+let enemyLineAttackPos = [];
 
 let currentTime = new Date();
 let lastBulletFire = 0;
@@ -127,14 +128,20 @@ function update() {
             enemyStepTime = 100;
 
             enemyLineAttackRot += 10;
+
+            let startPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0]*-1, getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1];
+            let endPos = [getCircleAngleCoord(100, enemyLineAttackRot)[0], getCircleAngleCoord(100, enemyLineAttackRot)[1]]
+
             this.add.line(
                 player.x, // origin x
                 player.y, // origin y
-                getCircleAngleCoord(100, enemyLineAttackRot)[0]*-1, // start x
-                getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1, // start y
-                getCircleAngleCoord(100, enemyLineAttackRot)[0], // end x
-                getCircleAngleCoord(100, enemyLineAttackRot)[1], // end y
+                startPos[0], // start x
+                startPos[1], // start y
+                endPos[0], // end x
+                endPos[1], // end y
                 0xff0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
+            
+            //enemyLineAttackPos.push([]);
         }
 
     }
