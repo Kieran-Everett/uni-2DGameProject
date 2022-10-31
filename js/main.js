@@ -311,3 +311,9 @@ function getPowerUp(player, powerUp) {
     playerHP += 1;
     powerUp.destroy();
 }
+
+function spawnPowerUP(x, y, velocityX, velocityY) {
+    let powerUp = powerUps.create(x, y, 'powerUp');
+
+    powerUp.setVelocity(velocityX, velocityY);
+}
