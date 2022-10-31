@@ -71,7 +71,7 @@ function create() {
     enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
 
     // Displaying player HP text
-    playerHPText = this.add.text(10, 750, 'HP: ' + playerHP, { fontSize: '32px', fill: '#FFFFFF'});
+    playerHPText = this.add.text(10, 750, 'HP: ' + playerHP, { fontSize: '32px', fill: '#FFFFFF'}); // x, y, text, style
 
 
     // Collision
