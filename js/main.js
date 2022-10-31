@@ -24,11 +24,12 @@ let playerHPText;
 let enemy;
 let enemyHP = 100;
 let gameOver = false;
-let enemyState = 3;
+let enemyState = 5;
 let enemyBullets;
 let enemyLineAttacks;
 let enemyLineAttackRot = 0;
 let enemyLineAttackPos = [];
+let enemyRot = 0;
 
 let currentTime = new Date();
 let lastBulletFire = 0;
@@ -158,6 +159,8 @@ function update() {
             }
 
         } else if (enemyState == 4) { // Line attack projectiles
+            enemyStepTime = 100;
+
             if (enemyLineAttackRot < enemyLineAttackPos.length) {
 
                 let bulletVelocity = [0, 0];
@@ -183,6 +186,10 @@ function update() {
                 enemyLineAttackRot = 0;
                 enemyLineAttackPos = [];
             }
+        } else if (enemyState == 5) { // Spin attack
+            enemyStepTime = 75;
+            fireEnemyBullet(enemy.x, enemy.y, getCordFromAngle(100, enemyRot)[0], getCordFromAngle(100, enemyRot)[1]);
+            enemyRot += 1;
         }
 
     }
@@ -329,4 +336,11 @@ function spawnPowerUP(x, y, velocityX, velocityY) {
     let powerUp = powerUps.create(x, y, 'powerUp');
 
     powerUp.setVelocity(velocityX, velocityY);
+}
+
+function getCordFromAngle(radius, angle) {
+    let opposite = Math.sin(angle) * radius; // x axis
+    let adjacent = Math.cos(angle) * radius; // y axis
+
+    return [opposite, adjacent];
 }
