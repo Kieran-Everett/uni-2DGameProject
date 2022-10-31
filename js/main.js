@@ -142,7 +142,7 @@ function update() {
                 startPos[1], // start y
                 endPos[0], // end x
                 endPos[1], // end y
-                0xff0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
+                0x3f0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
             
             enemyLineAttackPos.push([startPosAbsolute, endPosAbsolute]);
 
@@ -153,7 +153,22 @@ function update() {
 
         } else if (enemyState = 4) {
             if (enemyLineAttackRot < enemyLineAttackPos.length) {
-                fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][0][0], enemyLineAttackPos[enemyLineAttackRot][0][1], 0, 0);
+
+                let bulletVelocity = [0, 0];
+
+                
+
+                if (enemyLineAttackRot % 2) {
+                    bulletVelocity[0] = (enemyLineAttackPos[enemyLineAttackRot][0][0] - enemyLineAttackPos[enemyLineAttackRot][1][0])*-1;
+                    bulletVelocity[1] = (enemyLineAttackPos[enemyLineAttackRot][0][1] - enemyLineAttackPos[enemyLineAttackRot][1][1])*-1;
+
+                    fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][0][0], enemyLineAttackPos[enemyLineAttackRot][0][1], bulletVelocity[0], bulletVelocity[1]);
+                } else {
+                    bulletVelocity[0] = (enemyLineAttackPos[enemyLineAttackRot][0][0] - enemyLineAttackPos[enemyLineAttackRot][1][0]);
+                    bulletVelocity[1] = (enemyLineAttackPos[enemyLineAttackRot][0][1] - enemyLineAttackPos[enemyLineAttackRot][1][1]);
+
+                    fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][1][0], enemyLineAttackPos[enemyLineAttackRot][1][1], bulletVelocity[0], bulletVelocity[1]);
+                }
 
             }
             
