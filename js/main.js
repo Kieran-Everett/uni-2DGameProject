@@ -27,7 +27,7 @@ let playerHPText;
 let enemy;
 let enemyHP = 1000;
 let gameOver = false;
-let enemyState = 1;
+let enemyState = 0;
 let enemyBullets;
 let enemyLineAttacks;
 let enemyLineAttackRot = 0;
@@ -42,7 +42,7 @@ let enemyStep = 0;
 let enemyStepTime = 400;
 let lastEnemyStep = enemyStep;
 let lastStepTime = currentTime;
-let stepsToNextState = 20;
+let stepsToNextState = 0;
 
 // Creating game object
 let game = new Phaser.Game(config);
@@ -88,6 +88,33 @@ function create() {
 
 function update() {
 
+    if (stepsToNextState == 0) {
+        enemyState += 1;
+        if (enemyState > 5) {
+            enemyState = 1;
+        }
+
+        switch (enemyState){
+            case 1:
+                stepsToNextState = 100;
+                break;
+            case 2:
+                stepsToNextState = 20;
+                break;
+            case 3:
+                stepsToNextState = 1;
+                break;
+            case 4:
+                stepsToNextState = 1;
+                break;
+            case 5:
+                stepsToNextState = 200;
+                break;
+            default:
+                stepsToNextState = 20;
+        }
+    }
+
     // If gameOver then don't run update
     if (gameOver) return;
 
@@ -114,7 +141,7 @@ function update() {
 
         // State machine stuff
         if (enemyState == 1) { // Random bullets falling from the top of the screen
-            enemyStepTime = 500;
+            enemyStepTime = 200;
 
             fireEnemyBullet(Math.random() * config.width + 1, 0, 0, 200);
 
@@ -202,33 +229,6 @@ function update() {
             enemyRot += 1;
 
             stepsToNextState -= 1;
-        }
-
-        if (stepsToNextState == 0) {
-            enemyState += 1;
-            if (enemyState > 5) {
-                enemyState = 1;
-            }
-
-            switch (enemyState){
-                case 1:
-                    stepsToNextState = 20;
-                    break;
-                case 2:
-                    stepsToNextState = 20;
-                    break;
-                case 3:
-                    stepsToNextState = 1;
-                    break;
-                case 4:
-                    stepsToNextState = 1;
-                    break;
-                case 5:
-                    stepsToNextState = 100;
-                    break;
-                default:
-                    stepsToNextState = 20;
-            }
         }
 
     }
