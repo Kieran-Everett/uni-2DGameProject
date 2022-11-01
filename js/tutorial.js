@@ -12,6 +12,8 @@ let config = {
     }
 };
 
+let startGame;
+
 let game = new Phaser.Game(config);
 
 function preload() {
@@ -19,9 +21,11 @@ function preload() {
 }
 
 function create() {
-
+    startGame = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
 }
 
 function update() {
-
+    if (startGame.isDown) {
+        location.href = 'index.html';
+    }
 }
