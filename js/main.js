@@ -17,6 +17,7 @@ let config = {
 let player;
 let cursors;
 let fire;
+let slow;
 let playerBullets;
 let playerHP = 1;
 let playerHPText;
@@ -60,6 +61,7 @@ function create() {
     // Variables for getting player inputs
     cursors = this.input.keyboard.createCursorKeys();
     fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+    slow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
     // Creating groups for bullets
     playerBullets = this.physics.add.group();
@@ -202,22 +204,38 @@ function update() {
     }
 
 
+    let newVelocity = {x: 0, y:0};
+
     // Player movement
     if (cursors.left.isDown) { // Left
-        player.setVelocityX(-200);
+        //player.setVelocityX(-200);
+        newVelocity.x = -200;
     } else if (cursors.right.isDown) { // Right
-        player.setVelocityX(200);
+        //player.setVelocityX(200);
+        newVelocity.x = 200;
     } else { // Neutral
-        player.setVelocityX(0);
+        //player.setVelocityX(0);
+        newVelocity.x = 0;
     }
 
     if (cursors.down.isDown) { // Down
-        player.setVelocityY(200);
+        //player.setVelocityY(200);
+        newVelocity.y = 200;
     } else if (cursors.up.isDown) { // Up
-        player.setVelocityY(-200);
+        //player.setVelocityY(-200);
+        newVelocity.y = -200;
     } else { // Neutral
-        player.setVelocityY(0);
+        //player.setVelocityY(0);
+        newVelocity.y = 0;
     }
+
+    if (slow.isDown) {
+        newVelocity.x /= 2;
+        newVelocity.y /= 2;
+    }
+
+    player.setVelocityX(newVelocity.x);
+    player.setVelocityY(newVelocity.y);
 
     // Updating the current step
     lastEnemyStep = enemyStep;
