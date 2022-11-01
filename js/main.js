@@ -252,10 +252,6 @@ function fireEnemyBullet(x, y, velocityX, velocityY) {
     bullet.setVelocity(velocityX, velocityY);
 }
 
-function fireEnemyLine(x, y, length) {
-    let line;
-}
-
 // Damaging enemy function
 function damageEnemy(enemy, bullet) {
     enemyHP -= 1; // Dealing damage
