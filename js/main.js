@@ -25,7 +25,10 @@ let playerHP = 1;
 let playerHPText;
 
 let enemy;
-let enemyHP = 1000;
+let enemyMaxHP = 1000;
+let enemyHP = enemyMaxHP;
+let enemyHPBar;
+
 let gameOver = false;
 let enemyState = 0;
 let enemyBullets;
@@ -79,6 +82,11 @@ function create() {
     // Displaying player HP text
     playerHPText = this.add.text(10, 750, 'HP: ' + playerHP, { fontSize: '32px', fill: '#FFFFFF'}); // x, y, text, style
 
+    // Enemy HP bar
+    let barProgress = enemyHP / enemyMaxHP;
+    enemyHPBar = this.add.graphics();
+    enemyHPBar.fillStyle(0xff0000, 1);
+    enemyHPBar.fillRect(0, 0, barProgress * config.width, 30);
 
     // Collision
     this.physics.add.overlap(enemy, playerBullets, damageEnemy, null, this); // Enemy getting hit by playerBullets
@@ -310,7 +318,7 @@ function fireEnemyBullet(x, y, velocityX, velocityY) {
 // Damaging enemy function
 function damageEnemy(enemy, bullet) {
     enemyHP -= 1; // Dealing damage
-    console.log(enemyHP);
+    //console.log(enemyHP);
     bullet.destroy(); // Destroying the playerBullet that hit the enemy
 
     if (enemyHP == 0) { // Game over if enemy has 0 HP
@@ -319,6 +327,11 @@ function damageEnemy(enemy, bullet) {
     } else if (enemyHP % 15 == 0) {
         spawnPowerUP(Math.random() * config.width + 1, 0, 0, 150);
     }
+
+    let barProgress = enemyHP / enemyMaxHP;
+    console.log(barProgress);
+    enemyHPBar.fillStyle(0xff0000, 1);
+    enemyHPBar.fillRect(0, 0, barProgress * config.width, 30);
 }
 
 // Damaging the player function
