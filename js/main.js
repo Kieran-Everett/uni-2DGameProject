@@ -32,7 +32,7 @@ let enemyHPBar;
 let gameOver = false;
 let enemyState = 0;
 let enemyBullets;
-let enemyLineAttacks;
+let enemyLineAttacks = [];
 let enemyLineAttackRot = 0;
 let enemyLineAttackPos = [];
 let enemyRot = 0;
@@ -72,7 +72,6 @@ function create() {
     // Creating groups for bullets
     playerBullets = this.physics.add.group();
     enemyBullets = this.physics.add.group();
-    //enemyLineAttacks = this.physics.add.group();
 
     powerUps = this.physics.add.group();
 
@@ -186,14 +185,14 @@ function update() {
             let startPosAbsolute = [getCircleAngleCoord(100, enemyLineAttackRot)[0]*-1 + player.x, getCircleAngleCoord(100, enemyLineAttackRot)[1]*-1 + player.y];
             let endPosAbsolute = [getCircleAngleCoord(100, enemyLineAttackRot)[0] + player.x, getCircleAngleCoord(100, enemyLineAttackRot)[1] + player.y];
 
-            this.add.line(
+            enemyLineAttacks.push(this.add.line(
                 player.x, // origin x
                 player.y, // origin y
                 startPos[0], // start x
                 startPos[1], // start y
                 endPos[0], // end x
                 endPos[1], // end y
-                0x6f0000).setOrigin(0,0); // x, y, startx, starty, endx, endy, color
+                0x6f0000).setOrigin(0,0)); // x, y, startx, starty, endx, endy, color
             
             enemyLineAttackPos.push([startPosAbsolute, endPosAbsolute]);
 
@@ -230,6 +229,12 @@ function update() {
                 enemyLineAttackRot = 0;
                 enemyLineAttackPos = [];
                 stepsToNextState = 0;
+                
+                let lineCount = enemyLineAttacks.length
+                for (i = 0; i < lineCount; i++) {
+                    enemyLineAttacks[0].destroy();
+                    enemyLineAttacks.shift();
+                }
             }
         } else if (enemyState == 5) { // Spin attack
             enemyStepTime = 75;
