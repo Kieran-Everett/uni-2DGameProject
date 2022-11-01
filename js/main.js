@@ -25,7 +25,7 @@ let playerHPText;
 let enemy;
 let enemyHP = 100;
 let gameOver = false;
-let enemyState = 5;
+let enemyState = 1;
 let enemyBullets;
 let enemyLineAttacks;
 let enemyLineAttackRot = 0;
@@ -40,6 +40,7 @@ let enemyStep = 0;
 let enemyStepTime = 400;
 let lastEnemyStep = enemyStep;
 let lastStepTime = currentTime;
+let stepsToNextState = 20;
 
 // Creating game object
 let game = new Phaser.Game(config);
@@ -113,7 +114,9 @@ function update() {
         if (enemyState == 1) { // Random bullets falling from the top of the screen
             enemyStepTime = 500;
 
-            fireEnemyBullet(Math.random() * config.width + 1, 0, 0);
+            fireEnemyBullet(Math.random() * config.width + 1, 0, 0, 200);
+
+            stepsToNextState -= 1;
         } else if (enemyState == 2) { // Bullets are targeted to the player and start at the enemy
             // TODO Normalize the velocity vector
             
@@ -132,6 +135,8 @@ function update() {
             enemyStepTime = 500;
             
             fireEnemyBullet(enemy.x, enemy.y, (enemy.x - player.x) * -1, (enemy.y - player.y) * -1);
+
+            stepsToNextState -= 1;
         } else if (enemyState == 3) { // Line attack telegraph and calculations
             //fireEnemyLine(player.x, player.y, 10);
             enemyStepTime = 100;
@@ -184,14 +189,44 @@ function update() {
                 enemyLineAttackRot += 1;
 
             } else {
-                enemyState = 3;
+                //enemyState = 3;
                 enemyLineAttackRot = 0;
                 enemyLineAttackPos = [];
+                stepsToNextState = 0;
             }
         } else if (enemyState == 5) { // Spin attack
             enemyStepTime = 75;
             fireEnemyBullet(enemy.x, enemy.y, getCordFromAngle(100, enemyRot)[0], getCordFromAngle(100, enemyRot)[1]);
             enemyRot += 1;
+
+            stepsToNextState -= 1;
+        }
+
+        if (stepsToNextState == 0) {
+            enemyState += 1;
+            if (enemyState > 5) {
+                enemyState = 1;
+            }
+
+            switch (enemyState){
+                case 1:
+                    stepsToNextState = 20;
+                    break;
+                case 2:
+                    stepsToNextState = 20;
+                    break;
+                case 3:
+                    stepsToNextState = 1;
+                    break;
+                case 4:
+                    stepsToNextState = 1;
+                    break;
+                case 5:
+                    stepsToNextState = 100;
+                    break;
+                default:
+                    stepsToNextState = 20;
+            }
         }
 
     }
