@@ -280,7 +280,7 @@ function damageEnemy(enemy, bullet) {
         this.physics.pause();
         gameOver = true;
     } else if (enemyHP % 15 == 0) {
-        spawnPowerUP(Math.random() * config.width + 1, 0, 0, 200);
+        spawnPowerUP(Math.random() * config.width + 1, 0, 0, 150);
     }
 }
 
