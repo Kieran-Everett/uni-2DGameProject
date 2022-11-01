@@ -13,6 +13,8 @@ let config = {
     }
 };
 
+let debugMode = false;
+
 // Defining global variables
 let player;
 let cursors;
@@ -321,7 +323,9 @@ function damageEnemy(enemy, bullet) {
 
 // Damaging the player function
 function damagePlayer(player, bullet) {
-    playerHP -= 1; // Dealing damage
+    if (debugMode == false) {
+        playerHP -= 1; // Dealing damage
+    }
     playerHPText.setText('HP: ' + playerHP); // Updating the UI with the current player HP
     bullet.destroy(); // Destroying the enemy bullet
 
