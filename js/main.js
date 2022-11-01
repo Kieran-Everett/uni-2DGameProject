@@ -25,7 +25,7 @@ let playerHP = 1;
 let playerHPText;
 
 let enemy;
-let enemyHP = 100;
+let enemyHP = 1000;
 let gameOver = false;
 let enemyState = 1;
 let enemyBullets;
