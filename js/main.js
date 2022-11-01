@@ -329,7 +329,7 @@ function damageEnemy(enemy, bullet) {
     }
 
     let barProgress = enemyHP / enemyMaxHP;
-    console.log(barProgress);
+    //console.log(barProgress);
     enemyHPBar.clear();
     enemyHPBar.fillStyle(0xff0000, 1);
     enemyHPBar.fillRect(0, 0, barProgress * config.width, 30);
