@@ -25,7 +25,7 @@ let playerHP = 1;
 let playerHPText;
 
 let enemy;
-let enemyMaxHP = 1000;
+let enemyMaxHP = 500;
 let enemyHP = enemyMaxHP;
 let enemyHPBar;
 
