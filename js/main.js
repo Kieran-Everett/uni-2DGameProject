@@ -15,6 +15,8 @@ let config = {
 
 let debugMode = false;
 
+let gameRunning = true;
+
 // Defining global variables
 let player;
 let cursors;
@@ -94,6 +96,11 @@ function create() {
 }
 
 function update() {
+
+    // Checks to see if the game is meant to be paused, if so then return so the update function isn't ran that frame
+    if (gameRunning == false) {
+        return;
+    }
 
     if (stepsToNextState == 0) {
         enemyState += 1;
