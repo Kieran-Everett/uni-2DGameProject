@@ -33,6 +33,9 @@ let enemyHP = enemyMaxHP;
 let enemyHPBar;
 
 let gameOver = false;
+let gameOverLoad = true;
+let gameOverSprite;
+
 let enemyState = 0;
 let enemyBullets;
 let enemyLineAttacks = [];
@@ -61,6 +64,7 @@ function preload() {
     this.load.image('enemy', 'assets/enemy.png');
     this.load.image('powerUp', 'assets/powerUp.png');
     this.load.image('tutorial', 'assets/tutorial.png');
+    this.load.image('clearScreen', 'assets/clearScreen.png');
 }
 
 function create() {
@@ -114,7 +118,10 @@ function update() {
     }
 
     // If gameOver then don't run update
-    if (gameOver) return;
+    if (gameOver) {
+        gameOverScreen(this);
+        return;
+    }
 
     if (stepsToNextState == 0) {
         enemyState += 1;
@@ -433,4 +440,18 @@ function getCordFromAngle(radius, angle) {
     let adjacent = Math.cos(angle) * radius; // y axis
 
     return [opposite, adjacent];
+}
+
+function gameOverScreen(thisRef) {
+    if (gameOverLoad) {
+        gameOverSprite = thisRef.physics.add.sprite(config.width / 2, config.height / 2, 'clearScreen');
+
+        if (enemyHP <= 0) {
+            thisRef.add.text(100, 100, 'You win');
+        } else {
+            thisRef.add.text(100, 100, 'You died');
+        }
+
+        gameOverLoad = false;
+    }
 }
