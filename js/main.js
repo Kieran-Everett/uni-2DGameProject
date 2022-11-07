@@ -15,7 +15,8 @@ let config = {
 
 let debugMode = false;
 
-let gameRunning = true;
+let gameRunning = false;
+let tutorialSprite;
 
 // Defining global variables
 let player;
@@ -59,6 +60,7 @@ function preload() {
     this.load.image('playerBullet', 'assets/playerBullet.png');
     this.load.image('enemy', 'assets/enemy.png');
     this.load.image('powerUp', 'assets/powerUp.png');
+    this.load.image('tutorial', 'assets/tutorial.png');
 }
 
 function create() {
@@ -89,6 +91,8 @@ function create() {
     enemyHPBar.fillStyle(0xff0000, 1);
     enemyHPBar.fillRect(0, 0, barProgress * config.width, 30);
 
+    tutorialSprite = this.physics.add.sprite(config.width / 2, config.height / 2, 'tutorial');
+
     // Collision
     this.physics.add.overlap(enemy, playerBullets, damageEnemy, null, this); // Enemy getting hit by playerBullets
     this.physics.add.overlap(player, enemyBullets, damagePlayer, null, this); // Player getting hit by enemyBullets
@@ -99,6 +103,13 @@ function update() {
 
     // Checks to see if the game is meant to be paused, if so then return so the update function isn't ran that frame
     if (gameRunning == false) {
+
+        if (fire.isDown) {
+            tutorialSprite.destroy();
+            gameRunning = true;
+            return;
+        }
+
         return;
     }
 
