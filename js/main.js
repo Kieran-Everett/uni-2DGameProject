@@ -113,6 +113,9 @@ function update() {
         return;
     }
 
+    // If gameOver then don't run update
+    if (gameOver) return;
+
     if (stepsToNextState == 0) {
         enemyState += 1;
         if (enemyState > 5) {
@@ -139,9 +142,6 @@ function update() {
                 stepsToNextState = 20;
         }
     }
-
-    // If gameOver then don't run update
-    if (gameOver) return;
 
     // Getting the current time for things that need delta time
     currentTime = new Date();
