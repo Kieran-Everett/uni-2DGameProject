@@ -379,46 +379,8 @@ function damagePlayer(player, bullet) {
     }
 }
 
-/*
-function vectorMagnitude(x, y) {
-    return Math.sqrt((x * x) + (y * y));
-}
-
-function vectorNormalize(x, y) {
-    let magnitude = vectorMagnitude(x, y);
-    if (magnitude > 0) {
-        let normX = x / magnitude;
-        let normY = y / magnitude;
-        //return Math.sqrt((normX * normX) + (normY * normY));
-        return [normX, normY];
-    } else {
-        //return 0;
-        return [0, 0];
-    }
-}
-*/
-
-
-//https://stackoverflow.com/questions/43641798/how-to-find-x-and-y-coordinates-on-a-flipped-circle-using-javascript-methods#:~:text=Typically%2C%20to%20find%20the%20x,sin(degrees%E2%80%8E%C2%B0)).
 function getCircleAngleCoord(radius, angle) {
-    /*
-    let x = radius * Math.sin(Math.PI * 2 * angle / 360);
-    let y = radius * Math.cos(Math.PI * 2 * angle / 360);
-    return [x, y];
-    */
-
-    /*
-    if (angle <= 90){
-        let x = radius * Math.sin(Math.PI * 2 * angle / 360);
-        let y = radius * Math.cos(Math.PI * 2 * angle / 360);
-        return [x, y];
-    } else if (angle <= 180) {
-        let x = radius * Math.sin(Math.PI * 2 * (angle - 90) / 360);
-        let y = radius * Math.cos(Math.PI * 2 * (angle - 90) / 360);
-        return [x, y*-1];
-    }
-    */
-
+    // https://stackoverflow.com/a/43642478
     angle = (angle - 90) * Math.PI/180;
     return [radius*Math.cos(angle), -radius*Math.sin(angle)];
 }
