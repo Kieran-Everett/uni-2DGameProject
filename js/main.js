@@ -446,11 +446,8 @@ function gameOverScreen(thisRef) {
     if (gameOverLoad) {
         gameOverSprite = thisRef.physics.add.sprite(config.width / 2, config.height / 2, 'clearScreen');
 
-        if (enemyHP <= 0) {
-            thisRef.add.text(100, 100, 'You win');
-        } else {
-            thisRef.add.text(100, 100, 'You died');
-        }
+        let outputText = (enemyHP <= 0) ? 'You win' : 'You died';
+        thisRef.add.text(100, 100, outputText);
 
         gameOverLoad = false;
     }
