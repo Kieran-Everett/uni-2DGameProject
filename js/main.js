@@ -73,8 +73,9 @@ function create() {
     playerSprite = this.physics.add.sprite(config.width / 2, 450, 'character');
     
     // Setting up player physics
-    player = this.physics.add.sprite(config.width / 2, 450, 'playerHitbox');
+    player = this.physics.add.sprite(config.width / 2, 450, 'playerHitboxShown');
     player.setCollideWorldBounds(true);
+    player.visible = false;
 
     // Variables for getting player inputs
     cursors = this.input.keyboard.createCursorKeys();
@@ -312,6 +313,8 @@ function update() {
         newVelocity.x /= 2;
         newVelocity.y /= 2;
     }
+    
+    player.visible = (slow.isDown) ? true : false;
 
     player.setVelocityX(newVelocity.x);
     player.setVelocityY(newVelocity.y);
