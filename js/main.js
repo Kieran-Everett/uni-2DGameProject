@@ -65,11 +65,15 @@ function preload() {
     this.load.image('powerUp', 'assets/powerUp.png');
     this.load.image('tutorial', 'assets/tutorial.png');
     this.load.image('clearScreen', 'assets/clearScreen.png');
+    this.load.image('playerHitbox', 'assets/playerHitbox.png');
+    this.load.image('playerHitboxShown', 'assets/playerHitboxShown.png');
 }
 
 function create() {
+    playerSprite = this.physics.add.sprite(config.width / 2, 450, 'character');
+    
     // Setting up player physics
-    player = this.physics.add.sprite(config.width / 2, 450, 'character');
+    player = this.physics.add.sprite(config.width / 2, 450, 'playerHitbox');
     player.setCollideWorldBounds(true);
 
     // Variables for getting player inputs
@@ -311,6 +315,9 @@ function update() {
 
     player.setVelocityX(newVelocity.x);
     player.setVelocityY(newVelocity.y);
+
+    playerSprite.x = player.x;
+    playerSprite.y = player.y;
 
     // Updating the current step
     lastEnemyStep = enemyStep;
