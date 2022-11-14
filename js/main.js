@@ -140,7 +140,7 @@ function update() {
 
         switch (enemyState){
             case 1:
-                stepsToNextState = 100;
+                stepsToNextState = 200;
                 break;
             case 2:
                 stepsToNextState = 20;
@@ -182,9 +182,9 @@ function update() {
 
         // State machine stuff
         if (enemyState == 1) { // Random bullets falling from the top of the screen
-            enemyStepTime = 200;
+            enemyStepTime = 50;
 
-            fireEnemyBullet(Math.random() * config.width + 1, 0, 0, 200);
+            fireEnemyBullet(Math.random() * config.width + 1, 0, 0, 400);
 
             stepsToNextState -= 1;
         } else if (enemyState == 2) { // Bullets are targeted to the player and start at the enemy
