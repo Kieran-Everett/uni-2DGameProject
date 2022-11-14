@@ -248,12 +248,12 @@ function update() {
                     bulletVelocity[0] = (enemyLineAttackPos[enemyLineAttackRot][0][0] - enemyLineAttackPos[enemyLineAttackRot][1][0])*-1;
                     bulletVelocity[1] = (enemyLineAttackPos[enemyLineAttackRot][0][1] - enemyLineAttackPos[enemyLineAttackRot][1][1])*-1;
 
-                    fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][0][0], enemyLineAttackPos[enemyLineAttackRot][0][1], bulletVelocity[0], bulletVelocity[1]);
+                    fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][0][0], enemyLineAttackPos[enemyLineAttackRot][0][1], bulletVelocity[0] * 2, bulletVelocity[1] * 2);
                 } else {
                     bulletVelocity[0] = (enemyLineAttackPos[enemyLineAttackRot][0][0] - enemyLineAttackPos[enemyLineAttackRot][1][0]);
                     bulletVelocity[1] = (enemyLineAttackPos[enemyLineAttackRot][0][1] - enemyLineAttackPos[enemyLineAttackRot][1][1]);
 
-                    fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][1][0], enemyLineAttackPos[enemyLineAttackRot][1][1], bulletVelocity[0], bulletVelocity[1]);
+                    fireEnemyBullet(enemyLineAttackPos[enemyLineAttackRot][1][0], enemyLineAttackPos[enemyLineAttackRot][1][1], bulletVelocity[0] * 2, bulletVelocity[1] * 2);
                 }
             
                 enemyLineAttackRot += 1;
