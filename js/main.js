@@ -117,7 +117,7 @@ function create() {
     // Collision
     this.physics.add.overlap(enemy, playerBullets, damageEnemy, null, this); // Enemy getting hit by playerBullets
     this.physics.add.overlap(player, enemyBullets, damagePlayer, null, this); // Player getting hit by enemyBullets
-    this.physics.add.overlap(player, powerUps, getPowerUp, null, this);
+    this.physics.add.overlap(playerSprite, powerUps, getPowerUp, null, this);
 }
 
 function update() {
