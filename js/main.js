@@ -27,6 +27,7 @@ let playerBullets;
 let playerHP = 3;
 let playerHPText;
 let playerPower = 1;
+let playerSpeed = 200;
 
 let enemy;
 let enemyMaxHP = 500;
@@ -292,10 +293,10 @@ function update() {
     // Player movement
     if (cursors.left.isDown) { // Left
         //player.setVelocityX(-200);
-        newVelocity.x = -200;
+        newVelocity.x = -playerSpeed;
     } else if (cursors.right.isDown) { // Right
         //player.setVelocityX(200);
-        newVelocity.x = 200;
+        newVelocity.x = playerSpeed;
     } else { // Neutral
         //player.setVelocityX(0);
         newVelocity.x = 0;
@@ -303,10 +304,10 @@ function update() {
 
     if (cursors.down.isDown) { // Down
         //player.setVelocityY(200);
-        newVelocity.y = 200;
+        newVelocity.y = playerSpeed;
     } else if (cursors.up.isDown) { // Up
         //player.setVelocityY(-200);
-        newVelocity.y = -200;
+        newVelocity.y = -playerSpeed;
     } else { // Neutral
         //player.setVelocityY(0);
         newVelocity.y = 0;
