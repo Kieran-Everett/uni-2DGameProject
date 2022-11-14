@@ -340,13 +340,13 @@ function firePlayerBullet() {
         //bullet.setCollideWorldBounds(true);
     
         // Setting its velocity
-        bullet.setVelocity(0, -300);
+        bullet.setVelocity(0, -600);
     } else {
         let bullet1 = playerBullets.create(player.x - 10, player.y, 'playerBullet');
         let bullet2 = playerBullets.create(player.x + 10, player.y, 'playerBullet');
 
-        bullet1.setVelocity(0, -300);
-        bullet2.setVelocity(0, -300);
+        bullet1.setVelocity(0, -600);
+        bullet2.setVelocity(0, -600);
     }
 }
 
