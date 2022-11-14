@@ -24,8 +24,9 @@ let cursors;
 let fire;
 let slow;
 let playerBullets;
-let playerHP = 1;
+let playerHP = 3;
 let playerHPText;
+let playerPower = 1;
 
 let enemy;
 let enemyMaxHP = 500;
@@ -167,7 +168,7 @@ function update() {
         lastStepTime = currentTime; // Updating lastStepTime so it knows how long as been since the last step took place
     }
 
-    if (playerHP >= 3) {
+    if (playerPower >= 5) {
         // Making the player's bullets wiggle by iterating over and applying a sine to their X velocity based on their Y position
         playerBullets.children.iterate(function (child) {
             child.setVelocityX(Math.sin(child.y / 25) * 200);
@@ -332,7 +333,7 @@ function update() {
 // Player bullet firing function
 function firePlayerBullet() {
     // Making the bullet
-    if (playerHP == 1) {
+    if (playerPower == 1) {
         let bullet = playerBullets.create(player.x, player.y, 'playerBullet');
 
         //bullet.setCollideWorldBounds(true);
@@ -398,8 +399,7 @@ function getCircleAngleCoord(radius, angle) {
 }
 
 function getPowerUp(player, powerUp) {
-    playerHP += 1;
-    playerHPText.setText('HP: ' + playerHP);
+    playerPower += 1;
     powerUp.destroy();
 }
 
