@@ -25,6 +25,8 @@ let fire;
 let slow;
 let bomb;
 let bombLock = false;
+let playerBombText;
+let playerBombCount = 1;
 let playerBullets;
 let playerHP = 3;
 let playerHPText;
@@ -100,6 +102,8 @@ function create() {
 
     // Displaying player HP text
     playerHPText = this.add.text(10, 750, 'HP: ' + playerHP, { fontSize: '32px', fill: '#FFFFFF'}); // x, y, text, style
+
+    playerBombText = this.add.text(400, 750, 'Bombs: ' + playerBombCount, { fontSize: '32px', fill: '#FFFFFF'});
 
     // Enemy HP bar
     let barProgress = enemyHP / enemyMaxHP;
@@ -283,11 +287,15 @@ function update() {
 
     }
 
-    if (bomb.isDown && bombLock == false) {
-        enemyBullets.clear(true, true);
-        bombLock = true;
-    } else if (bomb.isDown == false) {
-        bombLock = false;
+    if (playerBombCount > 0) {
+        if (bomb.isDown && bombLock == false) {
+            enemyBullets.clear(true, true);
+            bombLock = true;
+            playerBombCount -= 1;
+            playerBombText.setText('Bombs: ' + playerBombCount);
+        } else if (bomb.isDown == false) {
+            bombLock = false;
+        }
     }
 
 
