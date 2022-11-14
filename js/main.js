@@ -23,6 +23,8 @@ let player;
 let cursors;
 let fire;
 let slow;
+let bomb;
+let bombLock = false;
 let playerBullets;
 let playerHP = 3;
 let playerHPText;
@@ -85,6 +87,7 @@ function create() {
     cursors = this.input.keyboard.createCursorKeys();
     fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
     slow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+    bomb = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 
     // Creating groups for bullets
     playerBullets = this.physics.add.group();
@@ -278,6 +281,13 @@ function update() {
             stepsToNextState -= 1;
         }
 
+    }
+
+    if (bomb.isDown && bombLock == false) {
+        enemyBullets.clear(true, true);
+        bombLock = true;
+    } else if (bomb.isDown == false) {
+        bombLock = false;
     }
 
 
