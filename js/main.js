@@ -17,6 +17,7 @@ let debugMode = false;
 
 let gameRunning = false;
 let tutorialSprite;
+let gameStartTime;
 
 // Defining global variables
 let player;
@@ -101,9 +102,9 @@ function create() {
     enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
 
     // Displaying player HP text
-    playerHPText = this.add.text(10, 750, 'HP: ' + playerHP, { fontSize: '32px', fill: '#FFFFFF'}); // x, y, text, style
+    playerHPText = this.add.text(10, 750, 'HP: ' + playerHP, {fontSize: '32px', fill: '#FFFFFF'}); // x, y, text, style
 
-    playerBombText = this.add.text(400, 750, 'Bombs: ' + playerBombCount, { fontSize: '32px', fill: '#FFFFFF'});
+    playerBombText = this.add.text(400, 750, 'Bombs: ' + playerBombCount, {fontSize: '32px', fill: '#FFFFFF'});
 
     // Enemy HP bar
     let barProgress = enemyHP / enemyMaxHP;
@@ -127,6 +128,7 @@ function update() {
         if (fire.isDown) {
             tutorialSprite.destroy();
             gameRunning = true;
+            gameStartTime = new Date();
             return;
         }
 
@@ -346,6 +348,10 @@ function update() {
 
     // Updating the current step
     lastEnemyStep = enemyStep;
+
+    
+    let score = Math.floor(((1000* playerPower) + (((currentTime - gameStartTime) / 1000)*-1))*playerHP);
+    console.log(score);
 }
 
 
@@ -440,7 +446,12 @@ function gameOverScreen(thisRef) {
         gameOverSprite = thisRef.physics.add.sprite(config.width / 2, config.height / 2, 'clearScreen');
 
         let outputText = (enemyHP <= 0) ? 'You win' : 'You died';
-        thisRef.add.text(100, 100, outputText);
+        thisRef.add.text(100, 100, outputText, {fontSize: '32px', fill: '#FFFFFF'});
+
+        if (enemyHP <= 0) {
+            let score = Math.floor(((1000* playerPower) + (((currentTime - gameStartTime) / 1000)*-1))*playerHP);
+            thisRef.add.text(100, 150, 'Score: ' + score, {fontSize: '32px', fill: '#FFFFFF'})
+        }
 
         gameOverLoad = false;
     }
