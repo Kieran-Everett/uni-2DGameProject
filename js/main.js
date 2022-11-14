@@ -67,10 +67,10 @@ function preload() {
     this.load.image('powerUp', 'assets/powerUp.png');
     this.load.image('tutorial', 'assets/tutorial.png');
     this.load.image('clearScreen', 'assets/clearScreen.png');
-    //this.load.image('playerHitbox', 'assets/playerHitbox.png');
-    //this.load.image('playerHitboxShown', 'assets/playerHitboxShown.png');
-    this.load.image('playerHitbox', 'assets/player.png');
-    this.load.image('playerHitboxShown', 'assets/player.png');
+    this.load.image('playerHitbox', 'assets/playerHitbox.png');
+    this.load.image('playerHitboxShown', 'assets/playerHitboxShown.png');
+    //this.load.image('playerHitbox', 'assets/player.png');
+    //this.load.image('playerHitboxShown', 'assets/player.png');
 }
 
 function create() {
