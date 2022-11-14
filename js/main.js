@@ -27,7 +27,7 @@ let playerBullets;
 let playerHP = 3;
 let playerHPText;
 let playerPower = 1;
-let playerSpeed = 200;
+let playerSpeed = 400;
 
 let enemy;
 let enemyMaxHP = 500;
