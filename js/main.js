@@ -348,10 +348,6 @@ function update() {
 
     // Updating the current step
     lastEnemyStep = enemyStep;
-
-    
-    let score = Math.floor(((1000* playerPower) + (((currentTime - gameStartTime) / 1000)*-1))*playerHP);
-    console.log(score);
 }
 
 
