@@ -2,6 +2,6 @@
 A bullet hell game made in JavaScript using Phaser.
 ## TODO
 - Assets ( Player / Enemy / Bullets )
-- Game over screen
-- Make power up collision check against the playerSprite not the hitbox
-- Tweak the hitbox size for better feel
+- Create a "1up"
+- Add more gun firing modes
+- Maybe make 2nd state more interesting / difficult
