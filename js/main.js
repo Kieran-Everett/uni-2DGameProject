@@ -23,6 +23,7 @@ let gameStartTime;
 let player;
 let cursors;
 let fire;
+let fire2;
 let slow;
 let bomb;
 let bombLock = false;
@@ -72,7 +73,7 @@ function preload() {
     this.load.image('playerBullet', 'assets/playerBullet.png');
     this.load.image('enemy', 'assets/enemy.png');
     this.load.image('powerUp', 'assets/powerUp.png');
-    this.load.image('tutorial', 'assets/tutorial.png');
+    this.load.image('tutorial', 'assets/tutorial2.png');
     this.load.image('clearScreen', 'assets/clearScreen.png');
     this.load.image('playerHitbox', 'assets/playerHitbox.png');
     this.load.image('playerHitboxShown', 'assets/playerHitboxShown.png');
@@ -92,6 +93,7 @@ function create() {
     // Variables for getting player inputs
     cursors = this.input.keyboard.createCursorKeys();
     fire = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
+    fire2 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     slow = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
     bomb = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Z);
 
@@ -317,7 +319,7 @@ function update() {
 
 
     // If player is pressing the fire button and it has been a certain amount of time since the last bullet was fired then fire a bullet
-    if (fire.isDown && (currentTime - lastBulletFire) > 200) {
+    if ((fire.isDown || fire2.isDown) && (currentTime - lastBulletFire) > 200) {
         firePlayerBullet();
         lastBulletFire = new Date(); // Save when this was so it knows how long it has been since the last bullet was fired
     }
