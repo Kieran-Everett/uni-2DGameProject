@@ -127,7 +127,6 @@ function create() {
 }
 
 function update() {
-
     // Checks to see if the game is meant to be paused, if so then return so the update function isn't ran that frame
     if (gameRunning == false) {
 
@@ -459,6 +458,11 @@ function getHealth(player, healthUp) {
 }
 
 function spawnPowerUP(x, y, velocityX, velocityY) {
+
+    if (playerPower == 4) {
+        return;
+    }
+
     let powerUp = powerUps.create(x, y, 'powerUp');
 
     powerUp.setVelocity(velocityX, velocityY);
