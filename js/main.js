@@ -33,6 +33,8 @@ let playerHP = 3;
 let playerHPText;
 let playerPower = 1;
 let playerSpeed = 400;
+let powerUps;
+let health;
 
 let enemy;
 let enemyMaxHP = 500;
@@ -76,6 +78,7 @@ function preload() {
     this.load.image('playerHitboxShown', 'assets/playerHitboxShown.png');
     //this.load.image('playerHitbox', 'assets/player.png');
     //this.load.image('playerHitboxShown', 'assets/player.png');
+    this.load.image('health', 'assets/health.png');
 }
 
 function create() {
@@ -98,6 +101,8 @@ function create() {
 
     powerUps = this.physics.add.group();
 
+    health = this.physics.add.group();
+
     // Enemy physics
     enemy = this.physics.add.sprite(config.width / 2, 200, 'enemy');
 
@@ -118,6 +123,7 @@ function create() {
     this.physics.add.overlap(enemy, playerBullets, damageEnemy, null, this); // Enemy getting hit by playerBullets
     this.physics.add.overlap(player, enemyBullets, damagePlayer, null, this); // Player getting hit by enemyBullets
     this.physics.add.overlap(playerSprite, powerUps, getPowerUp, null, this);
+    this.physics.add.overlap(playerSprite, health, getHealth, null, this);
 }
 
 function update() {
@@ -388,8 +394,12 @@ function damageEnemy(enemy, bullet) {
     if (enemyHP == 0) { // Game over if enemy has 0 HP
         this.physics.pause();
         gameOver = true;
-    } else if (enemyHP % 50 == 0) {
-        spawnPowerUP(Math.random() * config.width + 1, 0, 0, 150);
+    } else if (enemyHP % 25 == 0) {
+        if (enemyHP % 100 == 0) {
+            spawnHealth(Math.random() * config.width + 1, 0, 0, 150);
+        } else {
+            spawnPowerUP(Math.random() * config.width + 1, 0, 0, 150);
+        }
     }
 
     let barProgress = enemyHP / enemyMaxHP;
@@ -424,10 +434,22 @@ function getPowerUp(player, powerUp) {
     powerUp.destroy();
 }
 
+function getHealth(player, healthUp) {
+    playerHP += 1;
+    playerHPText.setText('HP: ' + playerHP); // Updating the UI with the current player HP
+    healthUp.destroy();
+}
+
 function spawnPowerUP(x, y, velocityX, velocityY) {
     let powerUp = powerUps.create(x, y, 'powerUp');
 
     powerUp.setVelocity(velocityX, velocityY);
+}
+
+function spawnHealth(x, y, velocityX, velocityY) {
+    let healthUp = health.create(x, y, 'health');
+
+    healthUp.setVelocity(velocityX, velocityY);
 }
 
 function getCordFromAngle(radius, angle) {
