@@ -192,7 +192,7 @@ function update() {
         });
     }
     */
-    playerPower = 4;
+
     if (playerPower >= 4) {
         playerBullets.children.iterate(function (child) {
             let newVelocity = (config.width / 2 > child.x) ? 50 : -50;
