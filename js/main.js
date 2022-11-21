@@ -395,7 +395,6 @@ function damageEnemy(enemy, bullet) {
         this.physics.pause();
         gameOver = true;
     } else if (enemyHP % 50 == 0) {
-        console.log('a')
         if (enemyHP % 100 == 0) {
             spawnHealth(Math.random() * config.width + 1, 0, 0, 150);
         } else {
