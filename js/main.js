@@ -252,7 +252,8 @@ function update() {
                 startPos[1], // start y
                 endPos[0], // end x
                 endPos[1], // end y
-                0x6f0000).setOrigin(0,0)); // x, y, startx, starty, endx, endy, color
+                0x6f0000).setOrigin(0,0)
+            ); // x, y, startx, starty, endx, endy, color
             
             enemyLineAttackPos.push([startPosAbsolute, endPosAbsolute]);
 
