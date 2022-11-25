@@ -101,8 +101,8 @@ function create() {
     playerBullets = this.physics.add.group();
     enemyBullets = this.physics.add.group();
 
+    // Creating groups for collectables
     powerUps = this.physics.add.group();
-
     health = this.physics.add.group();
 
     // Enemy physics
@@ -119,6 +119,7 @@ function create() {
     enemyHPBar.fillStyle(0xff0000, 1);
     enemyHPBar.fillRect(0, 0, barProgress * config.width, 30);
 
+    // Creating a sprite for the tutorial, probably a better way to do this
     tutorialSprite = this.physics.add.sprite(config.width / 2, config.height / 2, 'tutorial');
 
     // Collision
@@ -132,11 +133,10 @@ function update() {
     // Checks to see if the game is meant to be paused, if so then return so the update function isn't ran that frame
     if (gameRunning == false) {
 
-        if (fire.isDown) {
+        if (fire.isDown) { // If the player presses X then start the game
             tutorialSprite.destroy();
             gameRunning = true;
             gameStartTime = new Date();
-            return;
         }
 
         return;
@@ -148,6 +148,7 @@ function update() {
         return;
     }
 
+    // Changing enemy state to the next one and setting the number of steps until the next state
     if (stepsToNextState == 0) {
         enemyState += 1;
         if (enemyState > 5) {
@@ -194,10 +195,11 @@ function update() {
     }
     */
 
+    // Bullet tracking for final power upgrade
     if (playerPower >= 4) {
-        playerBullets.children.iterate(function (child) {
-            let newVelocity = (config.width / 2 > child.x) ? 50 : -50;
-            newVelocity = ((config.height / 100) - (child.y / 100)) * newVelocity;
+        playerBullets.children.iterate(function (child) { // For every player bullet
+            let newVelocity = (config.width / 2 > child.x) ? 50 : -50; // Move the bullet in the direction of the enemy
+            newVelocity = ((config.height / 100) - (child.y / 100)) * newVelocity; // Do a gradule increase of velocity
             child.setVelocityX(newVelocity);
         })
     }
@@ -270,7 +272,7 @@ function update() {
                 let bulletVelocity = [0, 0];
 
                 
-
+                // Alternate which direction the bullets start from and travel to
                 if (enemyLineAttackRot % 2) {
                     bulletVelocity[0] = (enemyLineAttackPos[enemyLineAttackRot][0][0] - enemyLineAttackPos[enemyLineAttackRot][1][0])*-1;
                     bulletVelocity[1] = (enemyLineAttackPos[enemyLineAttackRot][0][1] - enemyLineAttackPos[enemyLineAttackRot][1][1])*-1;
@@ -308,8 +310,8 @@ function update() {
     }
 
     if (playerBombCount > 0) {
-        if (bomb.isDown && bombLock == false) {
-            enemyBullets.clear(true, true);
+        if (bomb.isDown && bombLock == false) { // Dont spend all bombs at once by holding down the button
+            enemyBullets.clear(true, true); // Deletes all of the enemy bullets
             bombLock = true;
             playerBombCount -= 1;
             playerBombText.setText('Bombs: ' + playerBombCount);
@@ -351,12 +353,12 @@ function update() {
         newVelocity.y = 0;
     }
 
-    if (slow.isDown) {
+    if (slow.isDown) { // slowing down movement if holding shift
         newVelocity.x /= 2;
         newVelocity.y /= 2;
     }
     
-    player.visible = (slow.isDown) ? true : false;
+    player.visible = (slow.isDown) ? true : false; // showing the hitbox
 
     player.setVelocityX(newVelocity.x);
     player.setVelocityY(newVelocity.y);
@@ -372,20 +374,20 @@ function update() {
 // Player bullet firing function
 function firePlayerBullet() {
     // Making the bullet
-    if (playerPower == 1) {
+    if (playerPower == 1) { // One bullet
         let bullet = playerBullets.create(player.x, player.y, 'playerBullet');
 
         //bullet.setCollideWorldBounds(true);
     
         // Setting its velocity
         bullet.setVelocity(0, -600);
-    } else if (playerPower == 2) {
+    } else if (playerPower == 2) { // Two bullets
         let bullet1 = playerBullets.create(player.x - 10, player.y, 'playerBullet');
         let bullet2 = playerBullets.create(player.x + 10, player.y, 'playerBullet');
 
         bullet1.setVelocity(0, -600);
         bullet2.setVelocity(0, -600);
-    } else {
+    } else { // Three bullets
         let bullet = playerBullets.create(player.x, player.y - 5, 'playerBullet');
         let bullet1 = playerBullets.create(player.x - 15, player.y, 'playerBullet');
         let bullet2 = playerBullets.create(player.x + 15, player.y, 'playerBullet');
@@ -443,6 +445,7 @@ function damagePlayer(player, bullet) {
     }
 }
 
+// Calculating the x and y of a point on a cirlce with any given angle
 function getCircleAngleCoord(radius, angle) {
     // https://stackoverflow.com/a/43642478
     angle = (angle - 90) * Math.PI/180;
